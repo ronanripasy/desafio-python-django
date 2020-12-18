@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    username = None
     first_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     last_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     email = models.EmailField(
@@ -14,6 +15,16 @@ class User(AbstractUser):
             'unique': "A user with that email already exists.",
         },
     )
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    class Meta:
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
+    def __str__(self):
+        return self.email
 
 
 class Phone(models.Model):
