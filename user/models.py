@@ -1,10 +1,10 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 
 
-class User(AbstractUser):
-    username = None
+class User(AbstractBaseUser):
+    last_login = None
     first_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     last_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     email = models.EmailField(
@@ -32,3 +32,4 @@ class Phone(models.Model):
     area_code = models.IntegerField(null=True, blank=True)
     country_code = models.CharField(max_length=3)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='phones')
+
