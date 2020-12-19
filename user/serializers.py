@@ -5,11 +5,11 @@ from .models import User, Phone
 class PhoneSerializer(serializers.ModelSerializer):
     class Meta:
         model = Phone
-        fields = '__all__'
+        fields = ['number', 'area_code', 'country_code']
 
 
 class UserSerializer(serializers.ModelSerializer):
-    phones = PhoneSerializer(many=True, read_only=True)
+    phones = PhoneSerializer(many=True)
 
     class Meta:
         model = User
