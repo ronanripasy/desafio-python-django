@@ -1,3 +1,36 @@
+# API Heroku
+https://django-user.herokuapp.com/
+
+### Signup
+https://django-user.herokuapp.com/signup/
+```json
+{
+   "first_name":"Hello",
+   "last_name":"World",
+   "email":"hello@world.com",
+   "password":"q1w2e3r4",
+   "phones":[
+      {
+         "number":955887883,
+         "area_code":81,
+         "country_code":"+55"
+      }
+   ]
+}
+```
+
+### Signin
+https://django-user.herokuapp.com/signin/
+```json
+{
+	"password":"q1w2e3r4",
+	"email": "hello@world.com"
+}
+```
+
+### Me
+https://django-user.herokuapp.com/me/
+
 # API RESTful de usuários + login
 
 Criar aplicação que exponha uma API RESTful de criação de usuários com login.
@@ -27,7 +60,7 @@ Nós esperamos que as mensagens de erro tenham o seguinte formato:
     {
         "firstName": "Hello",
         "lastName": "World",
-        "email": "hello@world.com"
+        "email": "hello@world.com",
         "password": "hunter2",
         "phones": [
             {
