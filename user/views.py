@@ -13,7 +13,17 @@ from .serializers import UserSerializer
 @authentication_classes((JWTAuthentication,))
 @permission_classes((IsAuthenticated,))
 def me(request, **kwargs):
-    return Response(data={'service': 'me'})
+    try:
+        data_user = request.user
+        response = {
+            'first_name': data_user.first_name,
+            'last_name': data_user.last_name,
+            'email': data_user.email,
+            'phones': Phone.objects.values('number', 'area_code', 'country_code').filter(user_id=data_user.id),
+        }
+        return Response(data=response)
+    except PythonDjangoException as e:
+        return Response(e.detail, status=e.status_code)
 
 
 @api_view(['POST'])
@@ -34,10 +44,3 @@ def signup(request, **kwargs):
     except PythonDjangoException as e:
         return Response(e.detail, status=e.status_code)
 
-
-# @api_view(['GET'])
-# def signin(request, **kwargs):
-#     try:
-#         return Response(data={'service': 'signin'})
-#     except PythonDjangoException as e:
-#         return Response(e.detail, status=e.status_code)
