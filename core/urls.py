@@ -10,10 +10,10 @@ from user import views
 
 
 router = routers.DefaultRouter()
-router.register(r'', views.UserViewSet)
+router.register('', views.UserViewSet)
 
 urlpatterns = [
-    url(r'^$', lambda request: redirect(reverse('api-root'))),
+    # url(r'^$', lambda request: redirect(reverse('api-root'))),
     url(r'^api/', include(router.urls), name='api-root'),
     url('api/signin/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     url('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
