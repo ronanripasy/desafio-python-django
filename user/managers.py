@@ -10,7 +10,6 @@ class UserManager(BaseUserManager):
         user = self.model(email=email,
                           is_staff=is_staff, is_active=True,
                           is_superuser=is_superuser, **extra_fields)
-        # user.set_password(password)
         user.password = make_password(password)
         user.save(using=self._db)
         return user

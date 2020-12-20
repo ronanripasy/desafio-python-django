@@ -118,6 +118,11 @@ SIMPLE_JWT = {
     'ALGORITHM': 'HS256',
 }
 
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+)
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
