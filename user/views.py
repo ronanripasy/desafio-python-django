@@ -1,10 +1,9 @@
 from rest_framework import status
-from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import update_last_login
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from core.exceptions import PythonDjangoException
 from .models import User, Phone
@@ -42,7 +41,12 @@ def signup(request, **kwargs):
                 p = Phone(number=phone['number'], area_code=phone['area_code'], country_code=phone['country_code'],
                           user=user)
                 p.save()
-            return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+            # Creating access token for user
+            token = RefreshToken.for_user(user)
+            response = {}
+            response['access_token'] = str(token.access_token)
+            response['refresh_token'] = str(token)
+            return Response(data=response, status=status.HTTP_201_CREATED)
         else:
             raise PythonDjangoException(message=serializer.errors, status=status.HTTP_406_NOT_ACCEPTABLE)
     except PythonDjangoException as e:
