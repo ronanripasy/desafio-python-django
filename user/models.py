@@ -2,10 +2,10 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 from django.contrib.auth.models import AbstractBaseUser
 from .managers import UserManager
+from django.utils import timezone
 
 
 class User(AbstractBaseUser):
-    last_login = None
     first_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     last_name = models.CharField(max_length=150, blank=True, validators=[MinLengthValidator(2)])
     email = models.EmailField(
@@ -19,6 +19,7 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

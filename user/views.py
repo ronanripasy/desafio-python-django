@@ -1,8 +1,10 @@
 from rest_framework import status
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import update_last_login
 
 from core.exceptions import PythonDjangoException
 from .models import User, Phone
@@ -19,6 +21,8 @@ def me(request, **kwargs):
             'first_name': data_user.first_name,
             'last_name': data_user.last_name,
             'email': data_user.email,
+            'last_login': data_user.last_login,
+            'created_at': data_user.created_at,
             'phones': Phone.objects.values('number', 'area_code', 'country_code').filter(user_id=data_user.id),
         }
         return Response(data=response)
