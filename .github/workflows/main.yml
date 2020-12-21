@@ -6,13 +6,13 @@ on:
       - main
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Prepare repo
-        uses: actions/checkout@master
-      - name: Test
-        uses: onichandame/python-test-action@master
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Prepare repo
+#        uses: actions/checkout@master
+#      - name: Test
+#        uses: onichandame/python-test-action@master
 
   build:
     runs-on: ubuntu-latest
